@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div class="container">
+            <div class="search">
+            <form method="post" class="search_form">
+            {% csrf_token %}
+                <input type="text" class="form-control" name="city" placeholder="Введите название города">
+                <div class="input-group-btn">
+                    <button class="btn btn-default" type="submit">
+                        <img src="{% static 'img/search.png' %}" alt="search_btn">
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="search_result">
+            {% if country_code and cor and temp and pressure and humidity %}
+                <h1 style='text-align: center; color:#0071BC;'><strong>{{city}}</strong></h1>
+                <div class="search_result_info">
+                    <div class="search_result_small">
+                        <img class="weather_icon" src='http://openweathermap.org/img/w/{{icon}}.png' alt="weather_icon">
+                        <span class="weather_temp"> {{temp}}&deg</span>
+                        <span class="weather_main"> {{main}}</span>
+                    </div>
+                    <div class="search_result_full">
+                        <div class="weather_card_info">
+                            <p class="card_name">Ветер</p>
+                            <div class="card_info">
+                                <img class="card_icon" src="{% static 'img/wind.png' %}" alt="card_icon">
+                                <span class="info_count"> {{wind}} м/сек</span>
+                            </div>
+                        </div>
+                        <div class="weather_card_info">
+                            <p class="card_name">Давление</p>
+                            <div class="card_info ">
+                                <img class="card_icon" src="{% static 'img/pressure.png' %}" alt="card_icon">
+                                <span class="info_count"> {{pressure}} мм рт.ст</span>
+                            </div>
+                        </div>
+                        <div class="weather_card_info">
+                            <p class="card_name">Влажность</p>
+                            <div class="card_info humid_card">
+                                <img class="card_icon" src="{% static 'img/humidity.png' %}" alt="card_icon">
+                                <span class="info_count humid"> {{humidity}}%</span>
+                            </div>
+                        </div>
+                        <div class="weather_card_info">
+                            <p class="card_name">Рассвет / Закат</p>
+                            <div class="card_info sun">
+                                <div class="sunrise">
+                                   <img class="card_icon" src="{% static 'img/dawn.png' %}" alt="card_icon">
+                                    <span class="info_count"> {{sunrise}}</span>
+                                </div>
+                                <div class="sunset">
+                                   <img class="card_icon" src="{% static 'img/sunset.png' %}" alt="card_icon">
+                                    <span class="info_count"> {{sunset}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="weather_card_info">
+                            <p class="card_name">Температура</p>
+                            <div class="card_info temp_card">
+                                <img class="card_icon" src="{% static 'img/thermometer.png' %}" alt="card_icon">
+                                <div class="temp_count">
+                                    <div class="temp_min">
+                                        <p class="temp_name">Min</p>
+                                        <span class="info_count info_count_temp"> {{temp_min}}&deg</span>
+                                    </div>
+                                    <div class="temp_max">
+                                        <p class="temp_name">Max</p>
+                                        <span class="info_count info_count_temp"> {{temp_min}}&deg</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            {% endif %}
+        </div>
+    </div>
+{% endblock content %}
