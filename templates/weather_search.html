@@ -15,14 +15,18 @@
                     </button>
                 </div>
             </form>
+            <p class="text-center pb-4">{% now "F j, H:i" %}</p>
         </div>
         <div class="search_result">
             {% if country_code and cor and temp and pressure and humidity %}
-                <h1 style='text-align: center; color:#0071BC;'><strong>{{city}}</strong></h1>
+                <h1 style='text-align: center; color:#0071BC;'><strong><a
+								href="{% url 'city_detail' city openweather_id %}"
+								class="text-dark">
+							{{ city }}</a></strong></h1>
                 <div class="search_result_info">
                     <div class="search_result_small">
                         <img class="weather_icon" src='http://openweathermap.org/img/w/{{icon}}.png' alt="weather_icon">
-                        <span class="weather_temp"> {{temp}}&deg</span>
+                        <span class="weather_temp"> {{temp}}&degC</span>
                         <span class="weather_main"> {{main}}</span>
                     </div>
                     <div class="search_result_full">
@@ -79,7 +83,6 @@
                         </div>
                     </div>
                 </div>
-
             {% endif %}
         </div>
     </div>
