@@ -7,7 +7,8 @@ body {
     scroll-behavior: smooth;
     background: url("../img/bg.png") center no-repeat;
     background-size: cover;
-    height: 100vh;
+    min-height: 97vh;
+    padding-bottom: 20px;
 }
 
 body a {
@@ -61,14 +62,6 @@ ul {
     padding: 0;
 }
 
-body img {
-    border-radius: 4px;
-    -webkit-border-radius: 4px;
-    -o-border-radius: 4px;
-    -moz-border-radius: 4px;
-    -ms-border-radius: 4px;
-}
-
 .breadcrumb,
 ol {
     margin-bottom: 0 !important;
@@ -85,10 +78,10 @@ ol {
 /* CSS Document */
 
 header {
-    padding: 30px 0;
+    padding: 20px 0;
     z-index: 9;
     background-color: #FFFFFF;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
 }
 
 .toggle,
@@ -118,10 +111,18 @@ nav {
 .logos{max-width: 156px;}
 .auth_link{margin-right: 25px;}
 .row{margin: 0;}
+.user_location{
+    text-align: center;
+    font-weight: 500;
+    font-size: 25px;
+    line-height: 37px;
+    color: #B5B5B5;
+}
+.user_city{font-weight: 600;color: #0071BC;}
 .search_form{display: flex;align-items: center;}
 .form-control{
     background: #F2F2F2;
-    box-shadow: inset 0px 0px 9px rgb(0 0 0 / 25%);
+    box-shadow: inset 0 0 9px rgb(0 0 0 / 25%);
     border-radius: 45px;
     padding: 15px 41px;
 }
@@ -170,15 +171,39 @@ nav {
 .sunset{margin-left: 25px;}
 .sunrise{margin-right: 25px;}
 .temp_card, .temp_count, .humid_card{display: flex; align-items: center;}
-.temp_count{    margin-left: 25px;}
+.temp_count{ margin-left: 25px;}
 .temp_name, .info_count_temp{margin: 0;}
 .temp_max{margin-left: 15px;}
-
+.form-group {margin-bottom: 7px;}
+.form-group div .form-control{padding: 5px 30px;}
+.profile_nav, .media{display: flex; align-items: center;}
+.account-img{width: 135px;margin-right: 26px;}
+.account-heading{
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 39px;
+    color: #0071BC;
+    margin-bottom: 5px;
+}
+.account-email{
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 24px;
+    color: #8AA5BA !important;
+    margin-bottom: 5px;
+}
+.account-location{
+    font-weight: 600;
+    font-size: 17px;
+    line-height: 29px;
+    color: #878787;
+}
+.edit_form{max-width: 40%;}
 /* Since we'll have the "ul li" "float:left"
  * we need to add a clear after the container. */
 
 /* Removing padding, margin and "list-style" from the "ul",
- * and adding "position:reltive" */
+ * and adding "position:relative" */
 
 nav ul {
     float: right;
@@ -201,10 +226,8 @@ nav ul li {
     font-weight: 700;
     font-size: 0.8em;
     letter-spacing: 2px;
-    padding-left: 0;
-    padding-right: 0;
     padding: 10px 0;
-    margin: 0px 1em;
+    margin: 0 1em;
     color: #fff;
     text-transform: uppercase;
     -webkit-transition: 0.5s all ease;
@@ -461,7 +484,7 @@ li > a:only-child:after {
 }
 
 .banner-info {
-    padding: 11em 0 0em 3em;
+    padding: 11em 0 0 3em;
     width: 32%;
 }
 
@@ -489,7 +512,7 @@ li > a:only-child:after {
     font-size: 13px;
     letter-spacing: 1px;
     color: #ff4c4c;
-    border-radius: 0px;
+    border-radius: 0;
     display: inline-block;
     box-shadow: 0 12px 60px rgba(0, 0, 0, .2);
     -webkit-box-shadow: 0 12px 60px rgba(0, 0, 0, .2);
@@ -548,7 +571,6 @@ h3.tittle {
 
 ul.events-icons.new-inf img {
     border-radius: 50%;
-    border-radius: 50%;
     -webkit-border-radius: 50%;
     -o-border-radius: 50%;
     -moz-border-radius: 50%;
@@ -560,7 +582,7 @@ ul.events-icons.new-inf img {
 .bottom-gd.fea h3 {
     color: #05c46b;
     letter-spacing: 1px;
-    margin-top: 0em;
+    margin-top: 0;
     font-size: 1.4em;
 }
 
@@ -954,7 +976,6 @@ ul.w3layouts-box-list li {
     font-size: 1.3em;
     color: #62676b;
     line-height: 1.5em;
-    -webkit-text-stroke: 0.2px;
     font-weight: 400;
 }
 
@@ -976,8 +997,7 @@ ul.w3layouts-box-list li {
     color: #555555;
     text-transform: capitalize;
     font-size: 14px;
-    -webkit-text-stroke: 0px;
-    letter-spacing: 0px;
+    letter-spacing: 0;
 }
 
 .available span a {
@@ -1118,7 +1138,7 @@ h3.sear-head {
 }
 
 @media only screen and (min-width: 1025px) {
-    .pagination__item.active:hover
+    .pagination__item.active:hover,
     .pagination__link {
         color: #fff;
         background: #6658af
@@ -1169,7 +1189,6 @@ form.w3layouts-newsletter {
     outline: none;
     letter-spacing: 2px;
     border: none;
-    border: none;
     flex-basis: 100%;
     background: #efeeee;
 }
@@ -1178,7 +1197,6 @@ form.w3layouts-newsletter {
     color: #ff4c4c;
     font-size: 17px;
     letter-spacing: 1px;
-    padding: 14px 0;
     border: transparent;
     text-transform: uppercase;
     -webkit-transition: 0.5s all;
@@ -1207,7 +1225,7 @@ h2.logo-2 a {
     padding: 0.8em 1em;
     color: #495057;
     border: none;
-    border-radius: 0em;
+    border-radius: 0;
     font-size: 1em;
     letter-spacing: 1px;
     margin-bottom: 1em;
@@ -1233,7 +1251,7 @@ h2.logo-2 a {
     -webkit-transition: all 0.3s;
     -moz-transition: all 0.3s;
     transition: all 0.3s;
-    border-radius: 0em;
+    border-radius: 0;
 }
 
 .contact-right-content button.btn.bt1:hover {
@@ -1331,7 +1349,7 @@ h4.sub-con-fo {
 
 ul.w3layouts_social_list.media-soc li a {
     display: inline-block;
-    margin: 0em 0.5em;
+    margin: 0 0.5em;
 }
 
 .footer-grid_section_w3layouts li a:hover {
@@ -1350,7 +1368,7 @@ ul.w3layouts-icons li a {
 
 .footer-right {
     border-left: 1px solid #ddd;
-    padding: 3em 0em 3em 2em;
+    padding: 3em 0 3em 2em;
 }
 
 .footer-grid_section_w3layouts {
@@ -1418,7 +1436,7 @@ a.move-top span {
     }
 
     .banner-info {
-        padding: 16em 0 0em 3em;
+        padding: 16em 0 0 3em;
         width: 38%;
     }
 
@@ -1463,7 +1481,7 @@ a.move-top span {
 
 @media(max-width:1024px) {
     .banner-info {
-        padding: 14em 0 0em 3em;
+        padding: 14em 0 0 3em;
         width: 40%;
     }
 
@@ -1548,7 +1566,7 @@ a.move-top span {
     }
 
     .banner-info {
-        padding: 11em 0 0em 1em;
+        padding: 11em 0 0 1em;
         width: 44%;
     }
 
@@ -1563,7 +1581,7 @@ a.move-top span {
 
 @media(max-width:768px) {
     .banner-info {
-        padding: 11em 0 0em 1em;
+        padding: 11em 0 0 1em;
         width: 58%;
     }
 
@@ -1633,7 +1651,7 @@ a.move-top span {
     }
 
     .banner-info {
-        padding: 10em 0 0em 1em;
+        padding: 10em 0 0 1em;
         width: 58%;
     }
 
@@ -1671,7 +1689,7 @@ a.move-top span {
     }
 
     .banner-info {
-        padding: 9em 0 0em 1em;
+        padding: 9em 0 0 1em;
         width: 58%;
     }
 
@@ -1680,7 +1698,7 @@ a.move-top span {
     }
 
     .test-info {
-        padding: 0em 0;
+        padding: 0;
         margin: 0 auto;
         width: 96%;
     }
@@ -1692,7 +1710,7 @@ a.move-top span {
 
 @media(max-width:440px) {
     .banner-info {
-        padding: 8em 0 0em 1em;
+        padding: 8em 0 0 1em;
         width: 68%;
     }
 
@@ -1720,7 +1738,7 @@ a.move-top span {
 
 @media(max-width:414px) {
     .banner-info {
-        padding: 8em 0 0em 1em;
+        padding: 8em 0 0 1em;
         width: 75%;
     }
 }

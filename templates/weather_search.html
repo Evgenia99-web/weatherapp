@@ -2,7 +2,10 @@
 {% load static %}
 {% block content %}
     <div class="container">
-            <div class="search">
+        <div class="search">
+            {% if user.is_authenticated %}
+                <p class="user_location">{{ user.profile.country }}, <span class="user_city">{{ user.profile.city }}</span></p>
+            {% endif %}
             <form method="post" class="search_form">
             {% csrf_token %}
                 <input type="text" class="form-control" name="city" placeholder="Введите название города">
