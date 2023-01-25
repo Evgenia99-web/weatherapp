@@ -24,6 +24,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('register/', user_views.register, name='register'),
     path('profile/', user_views.profile, name='profile'),
+    path('favorite_save_<str:city>/', user_views.favorite_go, name='favorite_go'),
+    path('delete_<str:city>_<int:id>_hist/', user_views.delete_history_single, name='delete_history_single'),
+    path('delete_all_history/', user_views.delete_history_all, name='delete_history_all'),
+    path('delete_<str:city>_fav/', user_views.delete_favorite_single, name='delete_favorite_single'),
+    path('delete_all_favorite/', user_views.delete_favorite_all, name='delete_favorite_all'),
     path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='logout.html'), name='logout'),
     path('', include('weather.urls'))

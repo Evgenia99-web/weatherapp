@@ -1,6 +1,5 @@
 from django.contrib import admin
 from .models import City, CurrentWeather, CityStats, StatsSummary
-from django.db.models import Count, Sum, Min, Max, DateTimeField
 
 
 # admin.site.register(City)

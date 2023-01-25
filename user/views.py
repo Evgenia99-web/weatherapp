@@ -1,7 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+
+import weather.models
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
+from .models import History, Favorite
+from weather.models import City
 
 
 def register(request):
@@ -36,7 +40,62 @@ def profile(request):
 
     context = {
         'u_form': u_form,
-        'p_form': p_form
+        'p_form': p_form,
+        'histories': History.objects.filter(user_name=request.user).order_by("-id"),
+        'favorites': Favorite.objects.filter(user_name=request.user).order_by("-id")
     }
 
     return render(request, 'profile.html', context)
+
+
+def favorite_go(request, city):
+    current_city = City.objects.get(name=city)
+    if not Favorite.objects.filter(city_name=current_city):
+        fav_city = Favorite(
+            city_name=City.objects.get(name=city),
+            user_name=request.user,
+        )
+        fav_city.save()
+        fav = True
+    else:
+        Favorite.objects.filter(city_name=current_city).delete()
+        fav = False
+
+    context = {
+        'city': city,
+        'favorite': fav
+    }
+    return render(request, 'favorite_save.html', context)
+
+
+def delete_history_single(request, city, id):
+    current_city = City.objects.get(name=city)
+    History.objects.filter(pk=id).delete()
+
+    del_hist = {
+        'id': id,
+        'city': current_city
+    }
+    return render(request, 'delete_single_hist.html', del_hist)
+
+
+def delete_history_all(request):
+    current_user = request.user
+    History.objects.filter(user_name=current_user).delete()
+    return render(request, 'delete_all_hist.html')
+
+
+def delete_favorite_single(request, city):
+    current_city = City.objects.get(name=city)
+    Favorite.objects.filter(city_name=current_city, user_name=request.user).delete()
+
+    del_hist = {
+        'city': current_city
+    }
+    return render(request, 'delete_single_fav.html', del_hist)
+
+
+def delete_favorite_all(request):
+    current_user = request.user
+    Favorite.objects.filter(user_name=current_user).delete()
+    return render(request, 'delete_all_fav.html')

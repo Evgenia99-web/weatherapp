@@ -6,6 +6,7 @@ import json
 import time
 import datetime
 from .models import City, CurrentWeather, CityStats, create_current_weather
+from user.models import History, Favorite
 
 
 # Create your views here.
@@ -15,11 +16,9 @@ def home(request):
 
         city = request.POST['city']
 
-        source = urllib.request.urlopen(
-            'http://api.openweathermap.org/data/2.5/weather?q=' + city + '&units=metric&appid=0cd025f454e715b6b8c43a4329e68309&lang=ru').read()
-
+        url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=metric&appid=0cd025f454e715b6b8c43a4329e68309&lang=ru'
         # convert  json file into python dectionary
-        list_of_data = json.loads(source)
+        list_of_data = requests.get(url.format(city)).json()
 
         data = {
             'country_code': str(list_of_data['sys']['country']),
@@ -38,17 +37,33 @@ def home(request):
             'openweather_id': list_of_data['id'],
             'city': city,
             'lat': float(list_of_data['coord']['lat']),
-            'lon': float(list_of_data['coord']['lon'])
+            'lon': float(list_of_data['coord']['lon']),
+
         }
 
-        city_data = City(
-                name=data['city'],
-                country_code=data['country_code'],
-                openweather_id=data['openweather_id'],
-                latitude=data['lat'],
-                longitude=data['lon']
-        )
-        city_data.save()
+        if not City.objects.filter(name=city):
+            city_data = City(
+                    name=data['city'],
+                    country_code=data['country_code'],
+                    openweather_id=data['openweather_id'],
+                    latitude=data['lat'],
+                    longitude=data['lon']
+            )
+            city_data.save()
+
+        if request.user.is_authenticated:
+            history_data = History(
+                city_name=City.objects.get(name=city),
+                user_name=request.user,
+                search_date=datetime.datetime.now()
+            )
+            history_data.save()
+
+        current_city = City.objects.get(name=city)
+        if Favorite.objects.filter(city_name=current_city):
+            city_fav = True
+        else:
+            city_fav = False
 
     else:
         data = {}

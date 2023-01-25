@@ -127,7 +127,8 @@ nav {
     padding: 15px 41px;
 }
 .btn{ background: transparent;}
-.search_result{margin-top: 40px;}
+.search_result{margin-top: -20px;}
+.text-center{margin: 0;}
 .search_result_info{margin-top: 20px; align-items: center;}
 .search_result_small{ display: grid; text-align: center; width: 20%;}
 .search_result_full, .sun, .search_result_info{ display: flex;}
@@ -198,7 +199,46 @@ nav {
     line-height: 29px;
     color: #878787;
 }
-.edit_form{max-width: 40%;}
+.user_story{width: 50%;}
+.history_user{
+    background: #FFFFFF;
+    border-radius: 25px;
+    padding: 30px 40px;
+    text-align: center;
+    width: 100%;
+    height: 421px;
+    position: relative;
+    margin-bottom: 30px;
+}
+.history_user_result{
+    max-height: 253px;
+    overflow-y: auto;
+}
+.history_block_title{
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 29px;
+    color: #8AA5BA;
+}
+.history_list_item{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+.city_name{font-size: 18px;}
+.del_icon{width: 11px;}
+.delete{display: none;}
+.history_list_item:hover .delete{display: block;}
+.delete_all{
+    background: #FF6363;
+    border-radius: 25px;
+    padding: 12px 31px;
+    color: white;
+    position: absolute;
+    bottom: 33px;
+    left: 32%;
+}
+.user_blocks{display: flex; justify-content: space-between;}
 /* Since we'll have the "ul li" "float:left"
  * we need to add a clear after the container. */
 
@@ -214,6 +254,7 @@ nav ul {
 }
 
 /* Positioning the navigation items inline */
+ul{list-style: none;}
 
 nav ul li {
     display: inline-block;

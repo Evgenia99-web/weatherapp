@@ -61,7 +61,7 @@ class CurrentWeather(models.Model):
         verbose_name_plural = 'Прогнозы'
 
     def __str__(self):
-        return self.city.name + " - " + self.desc_short
+        return self.city.name
 
 
 class CityStats(models.Model):
@@ -80,7 +80,7 @@ class CityStats(models.Model):
         verbose_name_plural = 'Статистика по городам'
 
     def __str__(self):
-        return self.city.name + ": " + str(self.views)
+        return self.city.name
 
 
 class StatsSummary(CityStats):

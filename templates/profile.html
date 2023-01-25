@@ -1,29 +1,73 @@
 {% extends "base.html" %}
+{% load static %}
 {% load crispy_forms_tags %}
 {% block content %}
     <div class="content-section container">
-      <div class="media">
-        <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
-        <div class="media-body">
-            <h2 class="account-heading">{{ user.first_name }} {{ user.last_name }}</h2>
-            <p class="account-email">{{ user.email }}</p>
-            <p class="account-location">{{ user.profile.country }}, {{ user.profile.city }}</p>
-        </div>
-      </div>
         {% if user.username != 'admin' %}
-          <form class="edit_form" method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Ваш профиль</legend>
-                {{ u_form|crispy }}
-                  {{ p_form|crispy }}
-            </fieldset>
-            <div class="form-group">
-                <button class="btn btn-outline-info" type="submit">Обновить</button>
+            <div class="user_blocks">
+                <div class="person">
+                    <div class="media">
+                        <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
+                        <div class="media-body">
+                            <h2 class="account-heading">{{ user.first_name }} {{ user.last_name }}</h2>
+                            <p class="account-email">{{ user.email }}</p>
+                            <p class="account-location">{{ user.profile.country }}, {{ user.profile.city }}</p>
+                        </div>
+                    </div>
+                    <form class="edit_form" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <fieldset class="form-group">
+                        <legend class="border-bottom mb-4">Ваш профиль</legend>
+                        {{ u_form|crispy }}
+                          {{ p_form|crispy }}
+                    </fieldset>
+                    <div class="form-group">
+                        <button class="btn btn-outline-info" type="submit">Обновить</button>
+                    </div>
+                 </form>
+                </div>
+                <div class="user_story">
+                    <div class="history_user">
+                    <p class="history_block_title">История поиска городов</p>
+                    <div class="history_user_result">
+                        <ul class="history_list">
+                            {% for history in histories %}
+                                <li class="history_list_item">
+                                    <a href="{% url 'city_detail' history.city_name history.city_name.openweather_id %}" class="city_name">{{ history.city_name }}</a>
+                                    <a href="{% url 'delete_history_single' history.city_name history.id %}" class="delete" name="del_single"> <img src="{% static 'img/delete.png' %}" class="del_icon" alt="del_icon"></a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                <a href="{% url 'delete_history_all' %}" class="delete_all">Очистить историю</a>
+                </div>
+                    <div class="history_user">
+                    <p class="history_block_title">Избранные города</p>
+                    <div class="history_user_result">
+                        <ul class="history_list">
+                            {% for favorite in favorites %}
+                                <li class="history_list_item">
+                                    <a href="{% url 'city_detail' favorite.city_name favorite.city_name.openweather_id %}" class="city_name">{{ favorite.city_name }}</a>
+                                    <a href="{% url 'delete_favorite_single' favorite.city_name %}" class="delete" name="del_single"> <img src="{% static 'img/delete.png' %}" class="del_icon" alt="del_icon"></a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                <a href="{% url 'delete_favorite_all' %}" class="delete_all">Очистить избранное</a>
+                </div>
+                </div>
             </div>
-          </form>
-        {% else %}
 
+        {% else %}
+            <div class="media">
+                <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
+                <div class="media-body">
+                    <h2 class="account-heading">{{ user.first_name }} {{ user.last_name }}</h2>
+                    <p class="account-email">{{ user.email }}</p>
+                    <p class="account-location">{{ user.profile.country }}, {{ user.profile.city }}</p>
+                </div>
+              </div>
         {% endif %}
+
     </div>
 {% endblock content %}

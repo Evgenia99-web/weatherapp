@@ -1,10 +1,10 @@
+import datetime
+
 from django.db import models
 from django.contrib.auth.models import User
 from PIL import Image
 from django.utils import timezone
-
-import datetime
-import urllib.request
+from weather.models import City
 
 
 class Profile(models.Model):
@@ -16,6 +16,10 @@ class Profile(models.Model):
     def __str__(self):
         return f'{self.user.username} Profile'
 
+    class Meta:
+        verbose_name = 'Профиль'
+        verbose_name_plural = 'Профили'
+
     def save(self):
         super().save()
 
@@ -25,3 +29,28 @@ class Profile(models.Model):
             output_size = (300, 300)
             img.thumbnail(output_size)
             img.save(self.image.path)
+
+
+class History(models.Model):
+    city_name = models.ForeignKey(City, on_delete=models.CASCADE)
+    user_name = models.ForeignKey(User, on_delete=models.CASCADE)
+    search_date = models.DateTimeField()
+
+    class Meta:
+        verbose_name = 'История запроса'
+        verbose_name_plural = 'История запросов'
+
+    def __str__(self):
+        return str(self.city_name)
+
+
+class Favorite(models.Model):
+    city_name = models.ForeignKey(City, on_delete=models.CASCADE)
+    user_name = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = 'Любимый город'
+        verbose_name_plural = 'Любимые города'
+
+    def __str__(self):
+        return str(self.city_name)

@@ -64,6 +64,15 @@
                                 </div>
                             </div>
                         </div>
+                        {% if user.is_authenticated %}
+                            <div class="weather_card_info">
+                                {% if fav %}
+                                    <a href="{% url 'favorite_go' city %}" class="fav_to">{{ city }} в Избранном</a>
+                                {% else %}
+                                    <a href="{% url 'favorite_go' city %}" class="fav_to">Добавить в избранное {{ city }}</a>
+                                {% endif %}
+                            </div>
+                        {% endif %}
                         <div class="weather_card_info">
                             <p class="card_name">Температура</p>
                             <div class="card_info temp_card">
