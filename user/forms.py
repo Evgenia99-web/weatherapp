@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from .models import Profile
+from weather.models import City
 
 
 class UserRegisterForm(UserCreationForm):
@@ -24,3 +25,9 @@ class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['country', 'city', 'image']
+
+
+class CityUpdateForm(forms.ModelForm):
+    class Meta:
+        model = City
+        fields = ['name', 'country_code', 'image']

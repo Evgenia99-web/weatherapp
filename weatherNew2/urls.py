@@ -24,6 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('register/', user_views.register, name='register'),
     path('profile/', user_views.profile, name='profile'),
+    path('edit_city_<str:city>/', user_views.edit_city, name='edit_city'),
     path('favorite_save_<str:city>/', user_views.favorite_go, name='favorite_go'),
     path('delete_<str:city>_<int:id>_hist/', user_views.delete_history_single, name='delete_history_single'),
     path('delete_all_history/', user_views.delete_history_all, name='delete_history_all'),

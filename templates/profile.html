@@ -66,8 +66,41 @@
                     <p class="account-email">{{ user.email }}</p>
                     <p class="account-location">{{ user.profile.country }}, {{ user.profile.city }}</p>
                 </div>
-              </div>
-        {% endif %}
+            </div>
+            <div class="admin_panel">
+                <div class="admin_panel_filter">
+                    <form action="" method="POST" name="filter">
+                    {% csrf_token %}
+                        <fieldset class="form-group">
+                        <legend class="filter_name">Код страны</legend>
+                            <ul class="filter-box-list w3layouts-box-list">
+                                {% for country in countries %}
+                                    <li class="editContent" >
+                                        <input type="checkbox" class="checked" name="country_code" value="{{ country.country_code }}">
+                                        <span class="span editContent" >{{ country.country_code }}</span>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </fieldset>
+                        <button class="filter_btn" type="submit">Найти</button>
+                    </form>
+                </div>
+                <div class="city_block">
+                    <ul class="city_block_list">
+                        {% for city in page_obj %}
+                            <li class="city_list_item">
+                                <img src="{{ city.image.url }}" alt="city_img" class="city_img">
+                                <div class="city_descript">
+                                    <p class="current_city_name"><a href="{% url 'edit_city' city.name %}">{{ city.name }}</a></p>
+                                    <p class="current_city_country">{{ city.country_code }}</p>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                   {% include 'include/pagination.html' %}
+                </div>
 
+            </div>
+        {% endif %}
     </div>
 {% endblock content %}

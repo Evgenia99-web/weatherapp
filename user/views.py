@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 
 import weather.models
-from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
+from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, CityUpdateForm
 from .models import History, Favorite
 from weather.models import City
 
@@ -38,14 +39,43 @@ def profile(request):
         u_form = UserUpdateForm(instance=request.user)
         p_form = ProfileUpdateForm(instance=request.user.profile)
 
+    contact_list = City.objects.all()
+    paginator = Paginator(contact_list, 12)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     context = {
         'u_form': u_form,
         'p_form': p_form,
         'histories': History.objects.filter(user_name=request.user).order_by("-id"),
-        'favorites': Favorite.objects.filter(user_name=request.user).order_by("-id")
+        'favorites': Favorite.objects.filter(user_name=request.user).order_by("-id"),
+        'page_obj': page_obj,
+        'countries': City.objects.values("country_code").distinct(),
     }
 
     return render(request, 'profile.html', context)
+
+
+def edit_city(request, city):
+    city_model = City.objects.get(name=city)
+    c_form = CityUpdateForm(request.GET, request.FILES, instance=city_model)
+    if request.method == 'POST':
+        c_form = CityUpdateForm(request.POST, request.FILES, instance=city_model)
+        if c_form.is_valid():
+            c_form.save()
+            messages.success(request, f'Данные города успешно обновлен.')
+            return redirect('profile')
+        else:
+            c_form = CityUpdateForm(instance=city_model)
+            messages.get_messages(request)
+
+    context = {
+        'c_form': c_form,
+        'city': city
+    }
+
+    return render(request, 'edit_city.html', context)
 
 
 def favorite_go(request, city):
@@ -99,3 +129,4 @@ def delete_favorite_all(request):
     current_user = request.user
     Favorite.objects.filter(user_name=current_user).delete()
     return render(request, 'delete_all_fav.html')
+

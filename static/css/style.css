@@ -239,6 +239,65 @@ nav {
     left: 32%;
 }
 .user_blocks{display: flex; justify-content: space-between;}
+.city_block{margin-top: 35px; width: 100%;}
+.city_block_list{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.city_list_item{
+    margin: 0 15px 15px 0;
+    width: 23%;
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border-radius: 25px;
+    padding: 0 20px;
+    height: 100px;
+}
+.city_img{
+    max-width: 70px;
+    border-radius: 10px;
+    margin-right: 20px;
+}
+.city_descript p{margin: 0; line-height: 18px; font-size: 13px;}
+.current_city_name{font-weight: 600;color: #0071BC;}
+.current_city_country{    padding-top: 3px;}
+.admin_panel{display: flex;   align-items: baseline;}
+.admin_panel_filter{width: 150px;  margin-right: 35px; display: none;}
+.filter_name{font-size: 20px;}
+.filter-box-list{max-height: 230px;  overflow-y: scroll;}
+.filter-box-list::-webkit-scrollbar {
+  width: 10px;
+  background-color: #f9f9fd;
+}
+
+.filter-box-list::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #0071BC;
+}
+
+.filter-box-list::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.2);
+  border-radius: 10px;
+  background-color: #f9f9fd;
+}
+.filter_btn{
+    border: none;
+    background-color: #0071BC;
+    color: white;
+    border-radius: 10px;
+    padding: 4px 35px;
+    margin-top: 12px;
+}
+.city_img_detail{max-width: 240px;   border-radius: 20px;}
+mark{
+    background-color: transparent;
+    color: #0071bc;
+    font-weight: 800;
+    font-size: 36px;
+}
+.img-fluid { width: 80px;}
 /* Since we'll have the "ul li" "float:left"
  * we need to add a clear after the container. */
 
@@ -1122,7 +1181,7 @@ h3.sear-head {
     transition: all .2s ease-in-out;
     font-family: Roboto, sans-serif;
     font-size: 16px;
-    color: #6163b9
+    color: #0071BC
 }
 
 @media only screen and (max-width: 767px) {
@@ -1179,20 +1238,19 @@ h3.sear-head {
 }
 
 @media only screen and (min-width: 1025px) {
-    .pagination__item.active:hover,
-    .pagination__link {
+    .pagination__item.active:hover .pagination__link {
         color: #fff;
-        background: #6658af
+        background: #0071BC;
     }
 }
 
 .pagination__item.active .pagination__link {
     color: #fff;
-    background: #6658af
+    background: #0071BC
 }
 
 .pagination__item--dots .pagination__link {
-    color: #bfc0f1
+    color: #bfd1f1
 }
 
 /* --/Pagination */

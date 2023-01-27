@@ -3,6 +3,7 @@ from django.utils import timezone
 import requests
 import datetime
 import urllib.request
+from PIL import Image
 
 
 class City(models.Model):
@@ -11,6 +12,7 @@ class City(models.Model):
     openweather_id = models.IntegerField(default=0, unique=True)
     latitude = models.FloatField(default=0)
     longitude = models.FloatField(default=0)
+    image = models.ImageField(default='city_default.jpg', upload_to='city_pics')
 
     def __str__(self):
         return self.name
@@ -18,6 +20,16 @@ class City(models.Model):
     class Meta:
         verbose_name = 'Город'
         verbose_name_plural = 'Города'
+
+    def save(self, *args, **kwargs):
+        super().save()
+
+        img = Image.open(self.image.path)
+
+        if img.height > 480 or img.width > 800:
+            output_size = (800, 480)
+            img.thumbnail(output_size)
+            img.save(self.image.path)
 
 
 class CurrentWeather(models.Model):
