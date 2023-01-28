@@ -1,5 +1,5 @@
 import datetime
-
+from django.db.models.functions import Now
 from django.db import models
 from django.contrib.auth.models import User
 from PIL import Image
@@ -34,7 +34,7 @@ class Profile(models.Model):
 class History(models.Model):
     city_name = models.ForeignKey(City, on_delete=models.CASCADE)
     user_name = models.ForeignKey(User, on_delete=models.CASCADE)
-    search_date = models.DateTimeField()
+    search_date = models.DateTimeField(editable=False)
 
     class Meta:
         verbose_name = 'История запроса'

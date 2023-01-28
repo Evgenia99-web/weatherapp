@@ -1,17 +1,20 @@
 from django.shortcuts import render
 from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth.models import User
+from rest_framework import viewsets, permissions
 import urllib.request
 import requests
 import json
 import time
 import datetime
 from .models import City, CurrentWeather, CityStats, create_current_weather
-from user.models import History, Favorite
+from .serializers import CitySerializer, UserSerializer, CurrentWeatherSerializer, ProfileSerializer, HistorySerializer, FavoriteSerializer
+from .permissions import IsOwnerOrReadOnly
+from user.models import History, Favorite, Profile
 
 
 # Create your views here.
 def home(request):
-
     if request.method == 'POST':
 
         city = request.POST['city']
@@ -19,6 +22,15 @@ def home(request):
         url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=metric&appid=0cd025f454e715b6b8c43a4329e68309&lang=ru'
         # convert  json file into python dectionary
         list_of_data = requests.get(url.format(city)).json()
+
+        if str(list_of_data['cod']) == '404':
+            return render(request, 'search_fail.html', {
+                'error_message': f'Город "{city}" не найден! Возможно Вы ошиблись, попробуйте снова.'
+            })
+        elif str(list_of_data['cod']) != '200':
+            return render(request, 'search_fail.html', {
+                'error_message': ' Ощибка OpenWeather API! Возможно такого города нет в базе сервиса.'
+            })
 
         data = {
             'country_code': str(list_of_data['sys']['country']),
@@ -43,11 +55,11 @@ def home(request):
 
         if not City.objects.filter(name=city):
             city_data = City(
-                    name=data['city'],
-                    country_code=data['country_code'],
-                    openweather_id=data['openweather_id'],
-                    latitude=data['lat'],
-                    longitude=data['lon']
+                name=data['city'],
+                country_code=data['country_code'],
+                openweather_id=data['openweather_id'],
+                latitude=data['lat'],
+                longitude=data['lon']
             )
             city_data.save()
 
@@ -86,3 +98,39 @@ def city_detail(request, city_name, city_openweather_id):
         current_weather.update()
 
     return render(request, 'city_detail.html', {'city': city, 'weather': current_weather})
+
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all().order_by('username')
+    serializer_class = UserSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+
+class ProfileViewSet(viewsets.ModelViewSet):
+    queryset = Profile.objects.all().order_by('user')
+    serializer_class = ProfileSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+
+class HistoryViewSet(viewsets.ModelViewSet):
+    queryset = History.objects.all().order_by('city_name')
+    serializer_class = HistorySerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+
+class FavoriteViewSet(viewsets.ModelViewSet):
+    queryset = Favorite.objects.all().order_by('city_name')
+    serializer_class = FavoriteSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+
+class CityViewSet(viewsets.ModelViewSet):
+    queryset = City.objects.all().order_by('name')
+    serializer_class = CitySerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+
+class CurrentWeatherViewSet(viewsets.ModelViewSet):
+    queryset = CurrentWeather.objects.all().order_by('city')
+    serializer_class = CurrentWeatherSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]

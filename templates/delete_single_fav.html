@@ -1,6 +1,6 @@
 {% extends "base.html" %}
-
+{% load i18n %}
 {% block content %}
 	<h2 class="text-center">&#128546;&#128546;&#128546;&#128546;&#128546;</h2>
-	<h5 class="text-center">Город {{ city }} удален из Избранного. <br> Можете перейти в свой <a href="{% url 'profile' %}">профиль.</a> </h5>
+	<h5 class="text-center">{% trans "Город" %} {{ city }} {% trans "удален из Избранного" %}. <br> {% trans "Можете перейти в свой" %} <a href="{% url 'profile' %}">{% trans "профиль" %}.</a> </h5>
 {% endblock content %}

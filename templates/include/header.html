@@ -1,3 +1,4 @@
+{% load i18n %}
 {% load static %}
 <header class="header">
     <div class="container">
@@ -8,14 +9,35 @@
                     <img src="{% static 'img/logo.png' %}" alt="main_logo" class="logos">
                 </a>
             </div>
-            <div class="profile_nav">
+            <label for="drop" class="toggle">Menu</label>
+            <input type="checkbox" id="drop">
+            <div class="menu">
+                <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
+                <input name="next" type="hidden" value="{{ redirect_to }}">
+                <select name="language" class="select_lang">
+                    {% get_current_language as LANGUAGE_CODE %}
+                    {% get_available_languages as LANGUAGES %}
+                    {% get_language_info_list for LANGUAGES as languages %}
+                    {% for language in languages %}
+                        <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected{% endif %}>
+                            {{ language.name_local }} ({{ language.code }})
+                        </option>
+                    {% endfor %}
+                </select>
+                <input type="submit" value="Go" class="lang_btn">
+            </form>
+                <div class="profile_nav">
                 {% if user.is_authenticated %}
-                    <a class="nav-item nav-link" href="{% url 'profile' %}">Профиль</a>
-                    <a class="nav-item nav-link" href="{% url 'logout' %}">Выход</a>
+                    {% if user.username == 'admin' %}
+                        <a class="nav-item nav-link" href="http://127.0.0.1:8000/router/">{% trans "REST API" %}</a>
+                    {% endif %}
+                    <a class="nav-item nav-link" href="{% url 'profile' %}">{% trans "Профиль" %}</a>
+                    <a class="nav-item nav-link" href="{% url 'logout' %}">{% trans "Выход" %}</a>
                 {% else %}
-                    <a class="nav-item nav-link auth_link" href="{% url 'login' %}">Вход</a>
-                    <a class="nav-item nav-link singup_link" href="{% url 'register' %}">Регистрация</a>
+                    <a class="nav-item nav-link auth_link" href="{% url 'login' %}">{% trans "Вход" %}</a>
+                    <a class="nav-item nav-link singup_link" href="{% url 'register' %}">{% trans "Регистрация" %}</a>
                 {% endif %}
+            </div>
             </div>
         </nav>
         <!-- //nav -->

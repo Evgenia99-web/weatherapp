@@ -1,11 +1,11 @@
 {% extends "base.html" %}
-
+{% load i18n %}
 {% block content %}
     {% if favorite %}
         <h2 class="text-center">&#129505; &#128155; &#128154; &#128153; &#128156;</h2>
-        <h5 class="text-center">Город {{ city }} успешно добавлен в Избранное.<br> Можете перейти в свой <a href="{% url 'profile' %}">профиль.</a> </h5>
+        <h5 class="text-center">{% trans "Город" %} {{ city }} {% trans "успешно добавлен в Избранное" %}.<br> {% trans "Можете перейти в свой" %} <a href="{% url 'profile' %}">{% trans "профиль" %}.</a> </h5>
     {% else %}
         <h2 class="text-center">&#128546;&#128546;&#128546;&#128546;&#128546;</h2>
-        <h5 class="text-center">Город {{ city }} удален из Избранных.<br> Можете перейти в свой <a href="{% url 'profile' %}">профиль.</a> </h5>
+        <h5 class="text-center">{% trans "Город" %} {{ city }} {% trans "удален из Избранных" %}.<br> {% trans "Можете перейти в свой" %} <a href="{% url 'profile' %}">{% trans "профиль" %}.</a> </h5>
     {% endif %}
 {% endblock content %}

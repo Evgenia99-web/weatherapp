@@ -1,6 +1,6 @@
 {% extends "base.html" %}
-
+{% load i18n %}
 {% block content %}
 	<h2 class="text-center">&#128546;&#128546;&#128546;&#128546;&#128546;</h2>
-	<h5 class="text-center">Ваша история поиска городов очищена. <br> Можете перейти в свой <a href="{% url 'profile' %}">профиль.</a> </h5>
+	<h5 class="text-center">{% trans "Ваша история поиска городов очищена" %}. <br>{% trans "Можете перейти в свой" %}  <a href="{% url 'profile' %}">{% trans "профиль" %}.</a> </h5>
 {% endblock content %}

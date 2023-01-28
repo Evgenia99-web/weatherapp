@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import City, CurrentWeather, CityStats, StatsSummary
+from modeltranslation.admin import TranslationAdmin
 
 
 # admin.site.register(City)
@@ -8,13 +9,13 @@ from .models import City, CurrentWeather, CityStats, StatsSummary
 
 
 @admin.register(City)
-class CityAdmin(admin.ModelAdmin):
+class CityAdmin(TranslationAdmin):
     list_display = ("name", "openweather_id", "latitude", "longitude",)
     search_fields = ("name__icontains",)
 
 
 @admin.register(CurrentWeather)
-class CityAdmin(admin.ModelAdmin):
+class CityAdmin(TranslationAdmin):
     # fields = ("city",)
     list_display = ("city", "temp", )
 

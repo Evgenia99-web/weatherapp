@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 
 {% block content %}
-	<h2 class="text-center">🕵️</h2>
-	<h5 class="text-center">City search failed!</h5>
+    <div class="container">
+        <div class="search_fail">
+            <h2 class="text-center error_emoji">🕵️</h2>
+            <h5 class="text-center error_text">{{ error_message }}</h5>
+        </div>
+    </div>
 {% endblock content %}

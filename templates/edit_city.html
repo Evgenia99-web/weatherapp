@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load i18n %}
 {% load static %}
 {% load crispy_forms_tags %}
 {% block content %}
@@ -6,11 +7,11 @@
         <form class="edit_form" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Редактировать город {{ city }}</legend>
+                <legend class="border-bottom mb-4">{% trans "Редактировать город" %} {{ city }}</legend>
                 {{ c_form|crispy }}
             </fieldset>
             <div class="form-group">
-                <button class="btn btn-outline-info" type="submit">Обновить</button>
+                <button class="btn btn-outline-info" type="submit">{% trans "Обновить" %}</button>
             </div>
         </form>
     </div>

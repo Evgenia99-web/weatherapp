@@ -30,4 +30,4 @@ class ProfileUpdateForm(forms.ModelForm):
 class CityUpdateForm(forms.ModelForm):
     class Meta:
         model = City
-        fields = ['name', 'country_code', 'image']
+        fields = ['name', 'name_en', 'country_code', 'image']

@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% load static %}
 {% block content %}
     <div class="container">
@@ -8,7 +9,7 @@
             {% endif %}
             <form method="post" class="search_form">
             {% csrf_token %}
-                <input type="text" class="form-control" name="city" placeholder="Введите название города">
+                <input type="text" class="form-control" name="city" placeholder="{% trans "Введите название города" %}">
                 <div class="input-group-btn">
                     <button class="btn btn-default" type="submit">
                         <img src="{% static 'img/search.png' %}" alt="search_btn">
@@ -31,28 +32,28 @@
                     </div>
                     <div class="search_result_full">
                         <div class="weather_card_info">
-                            <p class="card_name">Ветер</p>
+                            <p class="card_name">{% trans "Ветер" %}</p>
                             <div class="card_info">
                                 <img class="card_icon" src="{% static 'img/wind.png' %}" alt="card_icon">
                                 <span class="info_count"> {{wind}} м/сек</span>
                             </div>
                         </div>
                         <div class="weather_card_info">
-                            <p class="card_name">Давление</p>
+                            <p class="card_name">{% trans "Давление" %}</p>
                             <div class="card_info ">
                                 <img class="card_icon" src="{% static 'img/pressure.png' %}" alt="card_icon">
                                 <span class="info_count"> {{pressure}} мм рт.ст</span>
                             </div>
                         </div>
                         <div class="weather_card_info">
-                            <p class="card_name">Влажность</p>
+                            <p class="card_name">{% trans "Влажность" %}</p>
                             <div class="card_info humid_card">
                                 <img class="card_icon" src="{% static 'img/humidity.png' %}" alt="card_icon">
                                 <span class="info_count humid"> {{humidity}}%</span>
                             </div>
                         </div>
                         <div class="weather_card_info">
-                            <p class="card_name">Рассвет / Закат</p>
+                            <p class="card_name">{% trans "Рассвет / Закат" %}</p>
                             <div class="card_info sun">
                                 <div class="sunrise">
                                    <img class="card_icon" src="{% static 'img/dawn.png' %}" alt="card_icon">
@@ -67,14 +68,14 @@
                         {% if user.is_authenticated %}
                             <div class="weather_card_info">
                                 {% if fav %}
-                                    <a href="{% url 'favorite_go' city %}" class="fav_to">{{ city }} в Избранном</a>
+                                    <a href="{% url 'favorite_go' city %}" class="fav_to">{{ city }} {% trans "в Избранном" %}</a>
                                 {% else %}
-                                    <a href="{% url 'favorite_go' city %}" class="fav_to">Добавить в избранное {{ city }}</a>
+                                    <a href="{% url 'favorite_go' city %}" class="fav_to">{% trans "Добавить в избранное" %} {{ city }}</a>
                                 {% endif %}
                             </div>
                         {% endif %}
                         <div class="weather_card_info">
-                            <p class="card_name">Температура</p>
+                            <p class="card_name">{% trans "Температура" %}</p>
                             <div class="card_info temp_card">
                                 <img class="card_icon" src="{% static 'img/thermometer.png' %}" alt="card_icon">
                                 <div class="temp_count">
