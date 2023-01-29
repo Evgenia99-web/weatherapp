@@ -25,7 +25,9 @@ SECRET_KEY = 'django-insecure-9t@*von1f*1^2&6=mjylp9+x&=k*s9fc+l4g=ve+)7^7dj_%57
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'weathercloud.std-1944.ist.mospolytech.ru'
+]
 
 # Application definition
 
