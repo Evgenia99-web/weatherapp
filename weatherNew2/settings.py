@@ -26,7 +26,8 @@ SECRET_KEY = 'django-insecure-9t@*von1f*1^2&6=mjylp9+x&=k*s9fc+l4g=ve+)7^7dj_%57
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'weathercloud.std-1944.ist.mospolytech.ru'
+    'weathercloud.std-1944.ist.mospolytech.ru',
+    '127.0.0.1'
 ]
 
 # Application definition
